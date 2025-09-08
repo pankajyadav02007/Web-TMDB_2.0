@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>WEB-TMDB 2.0</title>
+  </head>
+  <body>
+    <header>
+      <h3>WEB-TMDB 2.0</h3>
+      <select class="carousel" id="movieGenresList"></select>
+    </header>
+    <!-- Now Playing Movie Section -->
+    <section class="px-24px">
+      <section class="slider">
+        <img
+          src="https://image.tmdb.org/t/p/original/jvpkBenB6hv19WWYVlaiow8zklq.jpg"
+          style="height: 450px"
+        />
+        <div class="slider-info">
+          <h3>The Bad Guys 2</h3>
+          <p>
+            The now-reformed Bad Guys are trying (very, very hard) to be good,
+            but instead find themselves hijacked into a high-stakes,
+            globe-trotting heist, masterminded by a new team of criminals they
+            never saw coming: The Bad Girls
+          </p>
+        </div>
+      </section>
+    </section>
+
+    <!-- Upcoming Movie Section -->
+    <h3 class="title px-24 mt-24">Upcoming Movie</h3>
+    <section class="movies-container" id="upcoming-movies"></section>
+
+    <!-- Popular Movie Section -->
+    <h3 class="title px-24 mt-24">Popular Movie</h3>
+    <section class="movies-container" id="populer-movies"></section>
+
+    <!-- Top Rated Movie Section -->
+    <h3 class="title px-24 mt-24">Top Rated Movie</h3>
+    <section class="movies-container" id="top-rated-movies"></section>
+  </body>
+  <script src="./main.js"></script>
+</html>
