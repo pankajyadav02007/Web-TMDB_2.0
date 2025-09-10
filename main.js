@@ -130,9 +130,9 @@ throw new Error (`Response status: ${res.status}`)
 }
 
 
-window.addEventListener("", () => {
+window.addEventListener("load", () => {
 getMovieGenres();
-getMoviesList("upcoming", "upcoming-movies")
-getMoviesList("populer", "populer-movies")
-getMoviesList("top_rated", "top-reted-movies")
+getMovieList("upcoming", "upcoming-movies")
+getMovieList("popular", "popular-movies")
+getMovieList("top_rated", "top-reted-movies")
 });
