@@ -17,7 +17,7 @@ const headerOptions = {
 
 // Find all Genres Movies List
 function getMovieGenres(){
-    fetch("https://api.themoviedb.org/3/genre/movie/list",{
+    fetch("https://api.themoviedb.org/3/movie/now_playing",{
         method: "GET",
         headers: headerOptions,
     })
@@ -132,7 +132,7 @@ throw new Error (`Response status: ${res.status}`)
 
 window.addEventListener("load", () => {
 getMovieGenres();
-getMovieList("upcoming", "upcoming-movies")
+getUpcomingMovieList("upcoming", "upcoming-movies")
 getMovieList("popular", "popular-movies")
 getMovieList("top_rated", "top-reted-movies")
 });
