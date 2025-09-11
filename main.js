@@ -15,9 +15,39 @@ const headerOptions = {
     Authorization: `Bearer ${API_TOKEN}`
 };
 
+
+// Carousel Section
+
+function Carousel(moviesArr = []){
+    const sliderContainer = document.getElementById("now-playing-container")
+let index = 0;
+    setInterval(() => {
+sliderContainer.innerHTML = `<section class="slider">
+        <img
+          src="https://image.tmdb.org/t/p/original/${moviesArr[index].backdrop_path}"
+          style="height: 450px"
+        />
+        <div class="slider-info">
+          <h3>${moviesArr[index].title}</h3>
+          <p>
+     ${moviesArr[index].overview}
+          </p>
+        </div>
+      </section>`
+
+      index = index + 1
+      if(index >= moviesArr.length){
+        index = 0
+      }
+
+    }, 5000)
+}
+
+    
+
 // Find all Genres Movies List
 function getMovieGenres(){
-    fetch("https://api.themoviedb.org/3/movie/now_playing",{
+    fetch("https://api.themoviedb.org/3/genre/movie/list",{
         method: "GET",
         headers: headerOptions,
     })
@@ -33,7 +63,7 @@ throw new Error (`Response status: ${res.status}`)
             console.log(data);
             movieGenresListEl.innerHTML = "";
             for(let i = 0; i < data.genres.length; i++){
-                movieGenresListEl.innerHTML = movieGenresListEl.innerHTML + `<Option value="id=${data.genres[i].id}&name=${data.genres[i].name}">${data.genres[i].name}</Option>`;
+                movieGenresListEl.innerHTML = movieGenresListEl.innerHTML + `<button>${data.genres[i].name}</button>`;
             }
         })
         .catch((err) => {
@@ -63,17 +93,17 @@ throw new Error (`Response status: ${res.status}`)
             console.log(data.results);
 
             const upComingMovie = data.results || [];
+            Carousel(upComingMovie)
+            const upComingMovieEl = document.getElementById("upcoming-movies");
 
-            const upComingMovieEl = document.getElementById("upComing-movie");
-
-            for(let i = 0; i < data.upComingMovie.length; i++){
+            for(let i = 0; i < upComingMovie.length; i++){
                 upComingMovieEl.innerHTML = upComingMovieEl.innerHTML +
                  `<figure class="movie-card">
                 <img src = "https://image.tmdb.org/t/p/w500${upComingMovie[i].poster_path}"/>
                 <figcaption class = "movie-info">
                 <h3>${upComingMovie[i].title}</h3>
                 <p>${upComingMovie[i].overview}</p>
-                <div class = "release-date">Release: ${upComingMovie[i].release-date}</div>
+                <div class = "release-date">Release: ${upComingMovie[i].release_date}</div>
                 </figcaption>
                 </figure>`;
             }
@@ -106,7 +136,7 @@ throw new Error (`Response status: ${res.status}`)
 
             const movies = data.results || [];
 
-            const movieConierEl = document.getElementById("upComing-movie");
+            const movieConierEl = document.getElementById(id);
 
             for(let i = 0; i < movies.length; i++){
                 movieConierEl.innerHTML = movieConierEl.innerHTML +
@@ -115,7 +145,7 @@ throw new Error (`Response status: ${res.status}`)
                 <figcaption class = "movie-info">
                 <h3>${movies[i].title}</h3>
                 <p>${movies[i].overview}</p>
-                <div class = "release-date">Release: ${movies[i].release-date}</div>
+                <div class = "release-date">Release: ${movies[i].release_date}</div>
                 </figcaption>
                 </figure>`;
             }
@@ -134,5 +164,5 @@ window.addEventListener("load", () => {
 getMovieGenres();
 getUpcomingMovieList("upcoming", "upcoming-movies")
 getMovieList("popular", "popular-movies")
-getMovieList("top_rated", "top-reted-movies")
+getMovieList("top_rated", "top-rated-movies")
 });

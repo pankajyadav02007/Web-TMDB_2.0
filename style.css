@@ -21,6 +21,20 @@ body{
     margin-top: 24px;
 }
 
+#movieGenresList{
+  display: flex;
+  gap: 12px;
+}
+
+#movieGenresList button{
+  border: none;
+  background-color: orangered;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .header{
     display: flex;
     justify-content: space-between;
@@ -56,6 +70,8 @@ select option:checked {
   background: #0a66ff;   /* highlight */
   color: #fff;           /* text color of the selected row */
 }
+
+
 
 .title{
     font-size: 18px;
