@@ -21,6 +21,26 @@ body{
     margin-top: 24px;
 }
 
+#genMoviesList{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  margin-top: 20px;
+}
+
+#genMoviesList img{
+  height: 250px;
+  width: 250px;
+  border-radius: 12px;
+  position: relative;
+}
+
+#genMoviesList p{
+  border: 1px solid red;
+ 
+  
+
+}
+
 #movieGenresList{
   display: flex;
   gap: 12px;

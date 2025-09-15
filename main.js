@@ -63,7 +63,7 @@ throw new Error (`Response status: ${res.status}`)
             console.log(data);
             movieGenresListEl.innerHTML = "";
             for(let i = 0; i < data.genres.length; i++){
-                movieGenresListEl.innerHTML = movieGenresListEl.innerHTML + `<button>${data.genres[i].name}</button>`;
+                movieGenresListEl.innerHTML = movieGenresListEl.innerHTML + `<button onclick = "getMovieByGenresId ('${data.genres[i].id}')">${data.genres[i].name}</button>`;
             }
         })
         .catch((err) => {
@@ -75,7 +75,49 @@ throw new Error (`Response status: ${res.status}`)
     });
 }
 
+function getMovieByGenresId(id) {
+    console.log(id);
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`, {
+        method:"GET",
+        headers: headerOptions
+    })
+    .then((res) =>{
+console.log(res);
+if(!res.ok){
+    throw new Error(`Response status: ${res.status}`)
+}
+res.json()
+.then((data) => {
+    console.log(data);
+    const movies = data.results;
+    console.log(data);
+    const movieContainerEl = document.getElementById("genMoviesList");
+    movieContainerEl.innerHTML = "";
+    for(let i = 0; i < movies.length ; i++){
+movieContainerEl.innerHTML = movieContainerEl.innerHTML + 
+`<div>
+<img src="https://image.tmdb.org/t/p/w500/${movies[i].poster_path}" alt="${movies[i].title}" title="${movies[i].title}">
+<div class="card-content">
+<p class="rating">⭐ ${movies[i].vote_average}</p>
+<h3 class="movie-title">${movies[i].title}</h3>
+<p class="overview">
+${movies[i].overview}
+</p>
+</div>
+</div>`
+}
+})
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+}
+
+
 // UpComing movies
+
+
 function getUpcomingMovieList(){
     fetch("https://api.themoviedb.org/3/movie/upcoming",{
         method: "GET",
