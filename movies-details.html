@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movies Details</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <h3 style="padding: 12px">WEB-TMDB 2.0</h3>
+      <section style="padding: 12px" id="movieGenresList"></section>
+      <section id="genMoviesList"></section>
+    </header>
+
+    <main id="movies-details"></main>
+    <h1>Movies Details List</h1>
+    <script src="./main.js" defer></script>
+    <script>
+      function getMovieDetails(id) {
+        fetch(`https://api.themoviedb.org/3/movie/${id}`, {
+          method: "GET",
+          headers: headerOptions,
+        })
+          .then((res) => {
+            if (!res.ok) {
+              console.log(`Respons Failed ${res.status}`);
+            }
+            res.json().then((data) => {
+              console.log(data);
+              const moviesDetails = document.getElementById("movies-details");
+
+              moviesDetails.innerHTML = `<div>
+      <img
+        src="https://image.tmdb.org/t/p/original/${data.backdrop_path}"
+        alt="${data.title}"
+        title="${data.title}"
+       height= 550px
+        width = 100%
+         object-fit = cover
+      />
+      <div class="card-content">
+        <p class="rating">⭐ ${data.vote_average}</p>
+        <h3 class="movie-title">${data.title}</h3>
+      </div>
+    </div>
+`;
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
+      window.addEventListener("load", () => {
+        const params = new URLSearchParams(window.location.search);
+        console.log(params.get("id"));
+        getMovieDetails(params.get("id"));
+      });
+    </script>
+  </body>
+</html>

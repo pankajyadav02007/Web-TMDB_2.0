@@ -75,8 +75,9 @@ throw new Error (`Response status: ${res.status}`)
     });
 }
 
+// click button to show movie
 function getMovieByGenresId(id) {
-    console.log(id);
+    // console.log(id);
 
     fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`, {
         method:"GET",
@@ -101,9 +102,6 @@ movieContainerEl.innerHTML = movieContainerEl.innerHTML +
 <div class="card-content">
 <p class="rating">⭐ ${movies[i].vote_average}</p>
 <h3 class="movie-title">${movies[i].title}</h3>
-<p class="overview">
-${movies[i].overview}
-</p>
 </div>
 </div>`
 }
@@ -115,9 +113,30 @@ ${movies[i].overview}
 }
 
 
+// click cards and show all details
+function movieCards() {
+fetch("",{
+    method:"GET",
+headers: headerOptions
+})
+.then(( res) =>{
+    console.log(res)
+    if(!res.ok){
+         throw new Error(`Response status: ${res.status}`)
+    }
+    res.json()
+    .then((data) => {
+        console.log(data)
+    });
+}) 
+.catch(( err) => {
+    console.log(err);
+})
+
+}
+
+
 // UpComing movies
-
-
 function getUpcomingMovieList(){
     fetch("https://api.themoviedb.org/3/movie/upcoming",{
         method: "GET",
@@ -141,12 +160,14 @@ throw new Error (`Response status: ${res.status}`)
             for(let i = 0; i < upComingMovie.length; i++){
                 upComingMovieEl.innerHTML = upComingMovieEl.innerHTML +
                  `<figure class="movie-card">
+                 <a href="movies-details.html?id=${upComingMovie[i].id}">
                 <img src = "https://image.tmdb.org/t/p/w500${upComingMovie[i].poster_path}"/>
                 <figcaption class = "movie-info">
                 <h3>${upComingMovie[i].title}</h3>
                 <p>${upComingMovie[i].overview}</p>
                 <div class = "release-date">Release: ${upComingMovie[i].release_date}</div>
                 </figcaption>
+                </a>
                 </figure>`;
             }
         })
@@ -183,12 +204,14 @@ throw new Error (`Response status: ${res.status}`)
             for(let i = 0; i < movies.length; i++){
                 movieConierEl.innerHTML = movieConierEl.innerHTML +
                  `<figure class="movie-card">
+                  <a href="movies-details.html?id=${movies[i].id}">
                 <img src = "https://image.tmdb.org/t/p/w500${movies[i].poster_path}"/>
                 <figcaption class = "movie-info">
                 <h3>${movies[i].title}</h3>
                 <p>${movies[i].overview}</p>
                 <div class = "release-date">Release: ${movies[i].release_date}</div>
                 </figcaption>
+                </a>
                 </figure>`;
             }
         })
