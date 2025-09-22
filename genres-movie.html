@@ -6,41 +6,31 @@
 
     <!-- My CSS -->
     <link rel="stylesheet" href="./style.css" />
-    <title>DIV MoviesHub</title>
+    <title>Genres Movies</title>
   </head>
   <body>
     <header>
-      <h3>DIV MoviesHub</h3>
-      <select class="carousel" id="movieGenresList"></select>
+      <h3 style="padding: 12px">WEB-TMDB 2.0</h3>
+      <section style="padding: 12px" id="movieGenresList"></section>
     </header>
-    <!-- Now Playing Movie Section-->
-    <section class="px-24">
-      <section class="slider">
-        <img
-          src="https://image.tmdb.org/t/p/original/jvpkBenB6hv19WWYVlaiow8zklq.jpg"
-          style="height: 450px"
-        />
-        <div class="slider-info">
-          <h3>The Bad Guys 2</h3>
-          <p>
-            The now-reformed Bad Guys are trying (very, very hard) to be good,
-            but instead find themselves hijacked into a high-stakes,
-            globe-trotting heist, masterminded by a new team of criminals they
-            never saw coming: The Bad Girls
-          </p>
-        </div>
-      </section>
-    </section>
-    <!-- Upcomming Movies Section -->
-    <h3 class="title px-24 mt-24">Upcoming Movie</h3>
-    <section class="movies-container" id="upcomming-movies"></section>
-    <!-- Popular Movies Section -->
-    <h3 class="title px-24 mt-24">Popular Movie</h3>
-    <section class="movies-container" id="popular-movies"></section>
+    <main>
+      <section id="genMoviesList"></section>
+    </main>
+    <script src="main.js" defer></script>
 
-    <!-- Top Rated Movies Section -->
-    <h3 class="title px-24 mt-24">Top Rated Movie</h3>
-    <section class="movies-container" id="top-rated-movies"></section>
-    <script src="script.js"></script>
+    <script>
+      window.addEventListener("load", () => {
+        const params = new URLSearchParams(window.location.search);
+        const genId = params.get("id");
+        if (!genId) {
+          const aTag = document.createElement("a");
+          aTag.href = "index.html";
+
+          aTag.click();
+          return;
+        }
+        getMovieByGenresId(params.get("id"));
+      });
+    </script>
   </body>
 </html>

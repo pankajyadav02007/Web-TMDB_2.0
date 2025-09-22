@@ -10,11 +10,9 @@
     <header>
       <h3 style="padding: 12px">WEB-TMDB 2.0</h3>
       <section style="padding: 12px" id="movieGenresList"></section>
-      <section id="genMoviesList"></section>
     </header>
 
     <main id="movies-details"></main>
-    <h1>Movies Details List</h1>
     <script src="./main.js" defer></script>
     <script>
       function getMovieDetails(id) {
@@ -31,18 +29,18 @@
               const moviesDetails = document.getElementById("movies-details");
 
               moviesDetails.innerHTML = `<div>
+                <a href = "movies-details.html?id=${data.id}">
       <img
-        src="https://image.tmdb.org/t/p/original/${data.backdrop_path}"
-        alt="${data.title}"
-        title="${data.title}"
-       height= 550px
-        width = 100%
-         object-fit = cover
+        src="https://image.tmdb.org/t/p/original${data.backdrop_path}"
+       
+       style="height:550px;width:100%;object-fit:cover"
       />
       <div class="card-content">
-        <p class="rating">⭐ ${data.vote_average}</p>
+        <img src="https://image.tmdb.org/t/p/w500${data.poster_path}"/>
+        <p>${data.vote_average}</p>
         <h3 class="movie-title">${data.title}</h3>
       </div>
+      </a>
     </div>
 `;
             });
@@ -54,8 +52,15 @@
 
       window.addEventListener("load", () => {
         const params = new URLSearchParams(window.location.search);
-        console.log(params.get("id"));
-        getMovieDetails(params.get("id"));
+        const genId = params.get("id");
+        if (!genId) {
+          const aTag = document.createElement("a");
+          aTag.href = "index.html";
+
+          aTag.click();
+          return;
+        }
+        getMovieDetails(genId);
       });
     </script>
   </body>

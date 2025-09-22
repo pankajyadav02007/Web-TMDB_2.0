@@ -10,7 +10,6 @@
     <header>
       <h3 style="padding: 12px">WEB-TMDB 2.0</h3>
       <section style="padding: 12px" id="movieGenresList"></section>
-      <section id="genMoviesList"></section>
     </header>
     <!-- Now Playing Movie Section -->
     <section class="carousel px-24px" id="now-playing-container">
@@ -43,5 +42,12 @@
     <h3 class="title px-24 mt-24">Top Rated Movie</h3>
     <section class="movies-container" id="top-rated-movies"></section>
   </body>
-  <script src="./main.js"></script>
+  <script src="./main.js" defer></script>
+  <script>
+    window.addEventListener("load", () => {
+      getUpcomingMovieList("upcoming", "upcoming-movies");
+      getMovieList("popular", "popular-movies");
+      getMovieList("top_rated", "top-rated-movies");
+    });
+  </script>
 </html>
